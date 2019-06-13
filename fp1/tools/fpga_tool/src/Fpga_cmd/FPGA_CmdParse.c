@@ -1,7 +1,7 @@
 /*-
  *   BSD LICENSE
  *
- *   Copyright(c)  2017 Huawei Technologies Co., Ltd. All rights reserved.
+ *   Copyright(c)  2017-2018 Huawei Technologies Co., Ltd. All rights reserved.
  *
  *   Redistribution and use in source and binary forms, with or without
  *   modification, are permitted provided that the following conditions
@@ -399,14 +399,7 @@ UINT32 FPGA_ParseLoadHfi( INT32 argc, INT8 *argv[] )
     UINT32 ulRet = SDKRTN_PARSE_ERROR_BASE;
     UINT32 ulParaFlag = 0;
 
-    if ( argc < INPUT_PARAS_FOR_PARSE_MIN )
-    {
-        printf( "[***TIPS***] CMD-LF Input parameter number shouldn't be less than %d.\r\n", INPUT_PARAS_FOR_PARSE_MIN );
-        FPGA_ParsePrintHelpInfo(argv[0], g_pacHfiLoadHelp, sizeof_array(g_pacHfiLoadHelp));
-        return SDKRTN_PARSE_INPUT_ERROR;
-    }
-
-    if ( argc > INPUT_PARAS_FOR_LF_MAX )
+    if ( argc != INPUT_PARAS_FOR_LF_MAX )
     {
         printf( "[***TIPS***] CMD-LF Input parameter number shouldn't be more than %d.\r\n", INPUT_PARAS_FOR_LF_MAX );
         FPGA_ParsePrintHelpInfo(argv[0], g_pacHfiLoadHelp, sizeof_array(g_pacHfiLoadHelp));
@@ -414,7 +407,7 @@ UINT32 FPGA_ParseLoadHfi( INT32 argc, INT8 *argv[] )
     }
 
     /* Check the format of the parameter */
-    if ( '-' != *argv[2] )
+    if ( ( '-' != *argv[2] ) || ( '-' != *argv[4] ) )
     {
         printf("Parameter format is incorrect and should be prefixed '-'.\r\n");
         FPGA_ParsePrintHelpInfo(argv[0], g_pacHfiLoadHelp, sizeof_array(g_pacHfiLoadHelp));
